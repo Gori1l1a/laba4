@@ -1,15 +1,21 @@
 from bs4 import BeautifulSoup
 import csv
 import requests
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--input", default="countries.txt")
+parser.add_argument("--output", default="countries_data.csv")
+args = parser.parse_args()
 
 countries = []
-with open("countries.txt", "r") as file:
+with open(args.input, "r") as file:
     for line in file:
         country = line.strip()
         if country != "":
             countries.append(country)
 
-with open("countries_data.csv", "w", newline="", encoding="utf-8") as csv_file:
+with open(args.output, "w", newline="", encoding="utf-8") as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow(["country", "city", "area", "population"])
 
